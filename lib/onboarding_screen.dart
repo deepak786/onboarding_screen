@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:onboarding_screen/my_custom_scroll_behaviour.dart';
 import 'package:onboarding_screen/onboarding_image.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -57,24 +58,27 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
               // onboarding images
               Expanded(
-                child: PageView(
-                  children: [
-                    OnBoardingImage(
-                      data: data[0],
-                    ),
-                    OnBoardingImage(
-                      data: data[1],
-                    ),
-                    OnBoardingImage(
-                      data: data[2],
-                    )
-                  ],
-                  onPageChanged: (pageIndex) {
-                    setState(() {
-                      _currentPage = pageIndex;
-                    });
-                  },
-                  controller: _controller,
+                child: ScrollConfiguration(
+                  behavior: MyCustomScrollBehavior(),
+                  child: PageView(
+                    children: [
+                      OnBoardingImage(
+                        data: data[0],
+                      ),
+                      OnBoardingImage(
+                        data: data[1],
+                      ),
+                      OnBoardingImage(
+                        data: data[2],
+                      )
+                    ],
+                    onPageChanged: (pageIndex) {
+                      setState(() {
+                        _currentPage = pageIndex;
+                      });
+                    },
+                    controller: _controller,
+                  ),
                 ),
               ),
 
