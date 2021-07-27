@@ -43,7 +43,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(right: 16, left: 16),
           constraints: const BoxConstraints(
             maxWidth: 500,
           ),
@@ -51,13 +51,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // logo
-              SvgPicture.asset(
-                "assets/logo.svg",
-                height: 150,
+              Expanded(
+                flex: 1,
+                child: SvgPicture.asset(
+                  "assets/logo.svg",
+                ),
               ),
 
               // onboarding images
               Expanded(
+                flex: 3,
                 child: ScrollConfiguration(
                   behavior: MyCustomScrollBehavior(),
                   child: PageView(
@@ -82,31 +85,39 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
 
-              const SizedBox(height: 40),
-              // dots
-              DotsIndicator(
-                dotsCount: data.length,
-                position: _currentPage.toDouble(),
-                decorator: const DotsDecorator(
-                  color: Color(0xFFD1D1D1),
-                  activeColor: Color(0xFF47C0FC),
+              // bottom
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // dots
+                    DotsIndicator(
+                      dotsCount: data.length,
+                      position: _currentPage.toDouble(),
+                      decorator: const DotsDecorator(
+                        color: Color(0xFFD1D1D1),
+                        activeColor: Color(0xFF47C0FC),
+                      ),
+                    ),
+
+                    // buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                            child: OutlinedButton(
+                                onPressed: () {}, child: const Text("log in"))),
+                        const SizedBox(width: 32),
+                        Expanded(
+                            child: ElevatedButton(
+                                onPressed: () {}, child: const Text("sign up")))
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 40),
-              // buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      child: OutlinedButton(
-                          onPressed: () {}, child: const Text("log in"))),
-                  const SizedBox(width: 32),
-                  Expanded(
-                      child: ElevatedButton(
-                          onPressed: () {}, child: const Text("sign up")))
-                ],
-              ),
-              const SizedBox(height: 36),
             ],
           ),
         ),
